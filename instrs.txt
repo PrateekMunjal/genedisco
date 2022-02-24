@@ -1,0 +1,9 @@
+conda create -n gd python=3.8 -y
+
+conda activate gd
+
+pip install -r requirements.txt
+
+mkdir -p gd_cache
+mkdir -p gd_output
+

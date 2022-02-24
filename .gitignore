@@ -5,3 +5,7 @@ packrat/lib*/
 .idea/
 .DS_Store
 .pyc
+
+.vscode
+gd_cache/
+gd_output/

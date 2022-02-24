@@ -179,6 +179,16 @@ class PytorchMLPRegressorWithUncertainty(AbstractMetaModel, EmbeddingRetrievalMo
     def get_samples(self, 
                     data: List[torch.Tensor], 
                     k: Optional[int] = 1) -> List[torch.Tensor]:
+        #move data & model to gpu
+        if torch.cuda.is_available(): 
+            if isinstance(data, list):
+                for i in range(len(data)):
+                    data[i] = data[i].cuda()
+            else:
+                data = data.cuda()
+    
+            if not next(self.model.model.parameters()).is_cuda:
+                self.model.model = self.model.model.cuda()
         y_samples = self.model.model(data, k)
         return y_samples
 
@@ -212,7 +222,7 @@ class PytorchMLPRegressorWithUncertainty(AbstractMetaModel, EmbeddingRetrievalMo
                 y_preds.append(y_pred)
         
         y_preds = list(
-            map(lambda y_preds_i: torch.cat(y_preds_i, dim=0).detach().numpy(), 
+            map(lambda y_preds_i: torch.cat(y_preds_i, dim=0).cpu().detach().numpy(), 
                 zip(*y_preds))
         )
         y_preds = np.squeeze(y_preds)
