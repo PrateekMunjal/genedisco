@@ -16,6 +16,8 @@ echo "Working from dir: "`pwd`
 
 date
 
+# to ensure bitwise deterministic operations, we set buffer via CUBLAS_WORKSPACE_CONFIG
+
 CUBLAS_WORKSPACE_CONFIG=:16:8 python3 genedisco/apps/active_learning_loop.py \
     --cache_directory=$gd_cache \
     --output_directory=$gd_out \

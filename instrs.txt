@@ -7,3 +7,4 @@ pip install -r requirements.txt
 mkdir -p gd_cache
 mkdir -p gd_output
 
+sh run_exp.sh
