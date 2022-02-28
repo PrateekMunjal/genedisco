@@ -7,5 +7,7 @@ packrat/lib*/
 .pyc
 
 .vscode
+
+.ipynb_checkpoints/
 gd_cache/
 gd_output/
