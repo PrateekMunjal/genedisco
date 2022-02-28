@@ -48,14 +48,18 @@ class BayesianMLP(consistent_mc_dropout.BayesianModule, sp.ArgumentDictionary):
         self.fc1 = torch.nn.Linear(self.input_size, self.hidden_size)
         self.fc1_drop = consistent_mc_dropout.ConsistentMCDropout2d()
         self.fc2 = torch.nn.Linear(self.hidden_size, 1)
-        
-    def mc_forward_impl(self, x: torch.Tensor, return_embedding=False) -> List[torch.Tensor]:
+
+    def mc_forward_impl(
+        self, x: torch.Tensor, return_embedding=False
+    ) -> List[torch.Tensor]:
         x = x.float()
         emb = self.fc1(x)
         x = F.relu(self.fc1_drop(emb))
         x = self.fc2(x)
         if not self.training:
-            x = x[:, 0]  # TODO: maybe there is a better fix to comply with the expected dimension during evaluation
+            x = x[
+                :, 0
+            ]  # TODO: maybe there is a better fix to comply with the expected dimension during evaluation
         if return_embedding:
             return [x, emb]
         else:

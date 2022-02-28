@@ -51,6 +51,8 @@ class CustomLoss(sp.TorchLoss):
     def __call__(
         self, y_pred: List[torch.Tensor], y_true: List[torch.Tensor]
     ) -> torch.Tensor:
+        # A possible bug as the shape of output and input are different.
+        # For eg: loss values
         loss = self.loss_fn(y_pred[0], y_true[0].float())
         return loss
 

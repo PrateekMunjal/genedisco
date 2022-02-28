@@ -255,6 +255,8 @@ class ActiveLearningLoop(sp.AbstractBaseApplication):
             )
             results = app.run().run_result
             result_records.append(results.test_scores)
+
+            # After executing below set of lines: available indices holds the unlabeled set.
             available_indices = list(
                 set(available_indices) - set(last_selected_indices)
             )
